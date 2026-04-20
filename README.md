@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🧠 AI-Powered Content Summarizer (Transformers.js)
 
 A fully client-side AI application that summarizes text and documents directly in the browser using **Transformers.js**, **Web Workers**, and **ONNX runtime**.
@@ -374,3 +375,7 @@ This is not just a demo — it showcases:
 ## 🪪 License
 
 MIT License
+=======
+# ai-content-summarizer
+this is an ai app that uses the transformers model
+>>>>>>> 53c22752312e8f8bd9f1444f55c9d0050bf5e588

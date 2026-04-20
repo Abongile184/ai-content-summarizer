@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Abongile Arthur Mavela">
+    <link rel="icon" href="../icon/text.ico">
+    <title>Summarize Text</title>
+  </head>
+
+  <body class="relative min-h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))] font-sans">
+    <!-- Home Button (Top Right) -->
+    <div class="absolute top-4 right-6 z-50">
+      <button id="return-home"
+        class="group relative px-6 py-2 rounded-full bg-blue-500 text-white transition duration-300 overflow-hidden">
+        <span class="group-hover:hidden">Home</span>
+        <span class="hidden group-hover:inline">Now</span>
+      </button>
+    </div>
+  
+    <!-- Heading (Top Center) -->
+    <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-40">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white">
+        Text Summarizer
+      </h1>
+    </div>
+  
+    <!-- Centered Card Wrapper where the information gets processed-->
+    <div class="flex items-center justify-center min-h-screen px-4 pt-28 pb-10">
+      <div class="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-6 space-y-6">
+  
+        <!-- search-->
+        <div class="flex items-center justify-between space-x-6 w-full">
+          <!-- Search Input -->
+          <label class="relative block w-[360px]">
+            <span class="sr-only">paste link github or wikipedia</span>
+            <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+              <svg class="h-4 w-4 fill-slate-300" viewBox="0 0 20 20">
+                <path
+                  d="M12.9 14.32a8 8 0 1 1 1.414-1.414l5.387 5.387-1.414 1.414-5.387-5.387zM8 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
+              </svg>
+            </span>
+            <input id="url-fieldinput"
+              class="w-full placeholder:italic placeholder:text-slate-400 bg-white border border-slate-300 rounded-md py-1 pl-8 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 text-sm leading-tight"
+              placeholder="paste link github or wikipedia" type="text" name="search" />
+          </label>
+  
+          <!-- Slider had to remove it as it forced the code base to change
+          <div class="flex items-center space-x-4 w-1/2 justify-end">
+            <label for="length" class="text-sm text-gray-600">Short</label>
+            <input type="range" id="length" min="0" max="100" value="1"
+            class="w-48 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-black"/>
+            <label for="length" class="text-sm text-gray-600">Long</label>
+            <p id="showValue"></p>
+          </div> -->
+
+        </div>
+  
+  
+       <div class="flex flex-col md:flex-row gap-4">
+  <!-- Left Textarea (with overlay) -->
+  <div class="relative w-full">
+    <!-- Overlay -->
+    <div
+      id="drop-overlay"
+      class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-80 text-gray-600 text-lg font-medium rounded-lg border-2 border-dashed border-cyan-600 opacity-0 pointer-events-none transition-opacity duration-200 z-10"
+    >
+      Drop your file here
+    </div>
+
+    <!-- Input Textarea -->
+    <textarea
+      id="content-area"
+      placeholder="Paste or drag a supported file here..."
+      class="w-full h-96 p-4 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-black text-sm transition-all duration-200"
+    ></textarea>
+  </div>
+
+  <!-- Right Textarea (summary) -->
+  <textarea id="output_summary"
+    placeholder="Summary will appear here..."
+    readonly
+    class="w-full h-96 p-4 border border-gray-300 rounded-lg bg-gray-50 resize-none text-sm"
+  ></textarea>
+</div>
+  
+        <!-- Bottom row -->
+  
+       <div class="flex items-center gap-4">
+  <!-- Actual file input (visually hidden) -->
+  <input id="file-input" type="file" class="hidden" accept=".txt,.md,.json"/>
+
+  <!-- Label as custom button + filename together -->
+  <div class="flex items-center gap-2" id="insert-file">
+    <label 
+      for="file-input"
+      class="inline-block cursor-pointer text-sm font-semibold py-2 px-4 rounded-full bg-violet-50 text-violet-700 hover:bg-violet-100"
+    >
+      Choose file
+    </label>
+    <span
+      id="file-name"
+      class="text-xs text-gray-600"
+    >
+      No file chosen
+    </span>
+  </div>
+
+  <!-- Summarize button -->
+  <button class="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-500 transition text-sm" id="Summarize">
+    Summarize
+  </button>
+  <!-- STOP BUTTON-->
+   <button class="bg-black text-white px-6 py-2 rounded-full hover:bg-blue-500 transition text-sm" id="Stop-button">
+    Stop Model
+  </button>
+</div>
+      </div>
+    </div>
+  </body>
+ 
+</html>
+

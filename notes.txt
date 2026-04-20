@@ -1,0 +1,149 @@
+1.Transformers.js
+Based on the Python library — transformers — transformers.js is a JavaScript library that allows you to use pretrained models 
+from Hugging Face in a JavaScript environment — such as the browser. While it’s not as robust as the Python library, 
+it’s still pretty powerful.
+
+The library is versatile, supporting tasks such as Natural Language Processing (NLP), 
+Computer Vision, Audio, and Multimodal processing
+
+Under the hood, Transformers.js uses the ONNX Runtime to run the models in the browser.
+
+2.ONNX Runtime
+ONNX Runtime is a cross-platform machine-learning model accelerator, with a flexible interface to 
+integrate hardware-specific libraries. ONNX Runtime can be used with models from PyTorch, Tensorflow/Keras, 
+TFLite, scikit-learn, and other frameworks.
+
+ONNX, or Open Neural Network Exchange, was initially started as a collaboration between Microsoft and Facebook. 
+The project is open-source, and has grown to offer a universal format for machine learning models, ensuring seamless sharing 
+and deployment across platforms. ONNX is what makes it possible to directly run models in a browser. 
+
+3.Rerankers and Two-Stage Retrieval
+Retrieval Augmented Generation (RAG):
+is an AI technique that combines a retrieval system with a generative model to produce more accurate and context-aware responses.
+It works by first retrieving relevant information from an external knowledge source and then using that information to guide a 
+large language model (LLM) in generating a final answer. This process allows the AI to access and cite up-to-date or specific data,
+making its responses more reliable than those from a model relying solely on its training data. 
+
+4.Power of Rerankers
+A reranking model — also known as a cross-encoder — is a type of model that, given a query and document pair, will output a 
+similarity score. We use this score to reorder the documents by relevance to our query.
+
+5.Why Rerankers?
+If a reranker is so much slower, why bother using them? 
+The answer is that rerankers are much more accurate than embedding models.
+
+The intuition behind a bi-encoder's inferior accuracy is that bi-encoders must compress all of the possible meanings 
+of a document into a single vector — meaning we lose information. 
+Additionally, bi-encoders have no context on the query because we don't know the query until we receive 
+it (we create embeddings before user query time).
+
+On the other hand, a reranker can receive the raw information directly into the large transformer computation, 
+meaning less information loss. Because we are running the reranker at user query time, we
+have the added benefit of analyzing our document's meaning specific to the user query — rather than trying 
+to produce a generic, averaged meaning.
+
+When using bi-encoder models with vector search, we frontload all of the heavy transformer computation 
+to when we are creating the initial vectors — that means that when a user queries our system, we have already created 
+the vectors, so all we need to do is:
+    Run a single transformer computation to create the query vector.
+    Compare the query vector to document vectors with cosine similarity (or another lightweight metric).
+
+With rerankers, we are not pre-computing anything. Instead, we're feeding our query and a single other document into 
+the transformer, running a whole transformer inference step, and outputting a single similarity score
+
+
+Accelerating Model Inference Through Parallel Processing for Enhanced Speed
+Parallel processing in model inference involves executing multiple model inferences simultaneously to improve 
+the throughput and reduce latency. This is particularly useful when you have a large number of input samples to process, 
+and you want to take full advantage of the available CPU or GPU resources. There are several ways to implement parallel 
+processing for model inference, depending on your use case and the tools or libraries you are using.
+
+Dask:
+
+Dask is a parallel computing library for Python that can be used for parallel and distributed computing tasks. 
+It’s especially useful when dealing with larger datasets or more complex parallel workflows.
+We can use Dask to parallelize your models across multiple cores or even multiple machines. 
+We can use Dask for the faster Model inferencing also.
+
+We can use Dask for both CPU-bound and GPU-bound models. Dask provides flexibility in managing parallel and distributed 
+computing tasks, and it can be adapted to work with both CPU and GPU resources.
+
+ROUGE-L 
+is a metric used in natural language processing to evaluate the quality of a generated text, such as a summary, 
+by comparing it to a human-written reference text. It is based on the length of the longest common subsequence (LCS),
+a sequence of words that appear in the same relative order in both the generated and reference texts 
+but are not necessarily consecutive. A higher ROUGE-L score indicates greater similarity and fluency, 
+as it reflects both recall and precision based on word order. 
+
+How it works:
+Identifies the LCS: The metric finds the longest possible sequence of words that are common to both 
+sentences and appear in the same order.
+
+Calculates the score: The ROUGE-L score is calculated by dividing the length of the LCS by the length of the reference sentence.
+
+Example:
+Reference: "The quick brown fox jumps over the lazy dog." (9 words)
+
+Generated: "The quick dog jumps on the log."
+
+LCS: "The quick" and "jumps the" (4 words)ROUGE-L 
+
+Score: \(4/9\approx 0.44\)
+
+Repetition penalty:
+is a factor applied to discourage the model from generating repetitive text or phrases. 
+By adjusting this penalty, users can influence the model's output, reducing the likelihood of it producing redundant 
+or repeated content.
+
+The ROUGE-L score
+is a standard metric in natural language processing that ranges from 0 to 1, where 1 (or 100%) 
+indicates a perfect match between the machine-generated text and the human-written reference text. 
+
+The term "Lightweight scoring heuristic" 
+likely refers to a specific, computationally efficient proxy used within a particular system
+(such as Pinterest's home feed recommendation engine, where similar terms are used), 
+but it would still aim to approximate the standard ROUGE-L score's range and ideal value
+The highest possible score on this, or any ROUGE metric, is 1.0 (or 100%), representing an exact match with the reference summary. 
+
+As ROUGE scores 
+are task and dataset-specific, there is no single model that universally holds the "highest score" across all 
+possible applications. Scores vary greatly depending on the task (e.g., summarization, translation), the specific dataset used, 
+and whether the model is abstractive or extractive. 
+
+Cosine similarity 
+in LLMs is a mathematical method used to determine the semantic relationship between two pieces of text by 
+comparing their corresponding vectors, or embeddings. It measures the cosine of the angle between these vectors, 
+with a value of \(1\) indicating identical meaning and \(0\) indicating no similarity. This technique is fundamental 
+to LLM applications like semantic search, chatbots, and recommendation systems because it focuses on the direction of 
+the vectors to represent meaning, ignoring their magnitude. 
+
+How it works
+Text to vectors: LLMs first convert text into high-dimensional numerical vectors called embeddings. 
+Each vector represents the "meaning" of the text, with similar meanings having vectors that point in similar directions.
+
+Angle between vectors: Cosine similarity calculates the cosine of the angle between two of these vectors.
+The angle is a measure of the orientation of the vectors in space.
+
+Similarity score:
+If the angle is \(0\) degrees, the vectors point in the same direction, and the cosine similarity is \(1\) (fully similar).
+
+If the angle is \(90\) degrees, the vectors are orthogonal, and the cosine similarity is \(0\) (no similarity).
+
+A value between \(0\) and \(1\) indicates a degree of similarity. 
+
+Why it is useful for LLMs
+Focuses on meaning: By measuring the angle rather than the distance, cosine similarity effectively compares
+the "direction" or semantic content of the vectors, ignoring their length.
+
+Handles different lengths: It is useful for comparing documents of different sizes because it 
+normalizes for document length, making it a robust metric for semantic comparison.
+
+Computational efficiency: It is a computationally inexpensive method, which is beneficial for comparing 
+the massive vectors used by LLMs. 
+
+
+
+
+
+
+

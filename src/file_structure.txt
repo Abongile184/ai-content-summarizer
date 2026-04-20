@@ -1,0 +1,85 @@
+the current file structure:
+
+Ai_powered_content_summarizer/
+
+├── dist/ ← your Webpack build output
+│ ├── Text-Content/
+│ │ └── TextUi.html ← built text page HTML
+│ ├── Video-Content/
+│ │ └── VideoUi.html ← built video page HTML
+│ │
+│ ├── index.html ← built main landing page
+│ ├── 8879230a09f251ef51f4.ico ← favicon processed by Webpack
+│ ├── main.js ← JS bundle for landing page
+│ ├── text.js ← JS bundle for text page
+│ └── video.js ← JS bundle for video page
+│
+├── node_modules/ ← project dependencies
+│
+├── src/ ← source files
+│ ├── icon/
+│ │       └── favicon.ico ← source favicon
+│ ├── styles/
+│ │       └── tailwind.css ← Tailwind source styles
+│ │
+│ ├── Text-Content/
+│ │     ├── TextUi.html ← text page HTML source
+│ │     └── TextUi.js ← text page JS logic
+│ │     ├── AnalyzeButton.js ← start the model
+│ │     ├── Slider.js (no longer in use)
+│ │     ├── FileHandler.js (mainly responsible for Ui file uploads)
+│ │     ├── stopinference.js (stop the model / inference)
+│ │
+│ ├─ Storage/
+│ │     └──indexeddb.js (cache the model)
+│ │
+│ └── Video-Content/ (Future development for RAG pipeline)
+│ │   │
+│ │   ├── VideoUi.html ← video page HTML source
+│ │   └── VideoUi.js ← video page JS logic
+│ │
+│ │──Transformers/
+│ │ │──transformersSetup.js (300 mb after npm install @xenova/transformers -scripts )
+│ │ │ │
+│ │ │ └── Xenova/
+│ │ │       └── distilbart-cnn-6-6/
+│ │ │            │     └── onnx/
+│ │ │            │            ├── decoder_model_merged_quantized.onnx (147 mb)
+│ │ │            │            ├── decoder_model_quantized.onnx (147 mb)
+│ │ │            │            ├── decoder_with_past_model_quantized.onnx (135 mb)
+│ │ │            │            ├── encoder_model_quantized.onnx (122 mb )
+│ │ │            │
+│ │ │            │── config.json
+│ │ │            │── generation_config.json
+│ │ │            │── gitattributes
+│ │ │            │── merges.txt
+│ │ │            │── quantize_config.json
+│ │ │            │── README.md
+│ │ │            │── special_tokens_map.json
+│ │ │            │── tokenizer_config.json
+│ │ │            │── tokenizer.json
+│ │ │            │── vocab.json
+│ │ │             
+│ │ │
+│ │ │── chunking.js (langchain for processing long text/data)
+│ │
+│ │── Ui_StateManagement/
+│ │               └── Ui_state.js ( for managing the state of the Ui)
+│ │           
+│ │
+│ │── Workers/
+│ │         └── smmmarizer.worker.js (web worker that does the heavy processing)
+│ │         └── workerController.js (owns the web worker and also stops it)
+│ │
+│ │─contentSummarizer.html (home page)
+│ │─index.js (main index )
+│
+├── .babelrc ← Babel config for transpiling JS
+├── .gitignore ← ignores node_modules, dist, etc.
+├── package.json ← NPM config + scripts
+├── package-lock.json ← exact NPM dependency versions
+├── postcss.config.js ← Tailwind + Autoprefixer config
+├── tailwind.config.js ← Tailwind customization
+├── techstack.txt ← optional doc to describe your tech choices
+├── requirements.txt ← (just a file i created documenting the development process)
+└── webpack.config.js ← Webpack config for multiple pages + assets

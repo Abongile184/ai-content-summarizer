@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # 🧠 AI-Powered Content Summarizer (Transformers.js)
 
 A fully client-side AI application that summarizes text and documents directly in the browser using **Transformers.js**, **Web Workers**, and **ONNX runtime**.

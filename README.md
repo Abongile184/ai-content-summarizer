@@ -383,4 +383,4 @@ MIT License
 =======
 # ai-content-summarizer
 this is an ai app that uses the transformers model
->>>>>>> 53c22752312e8f8bd9f1444f55c9d0050bf5e588
+

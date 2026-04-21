@@ -14,8 +14,11 @@ module.exports = {
     filename: "[name].js",    // dynamic output names: main.js, text.js, video.js
     path: path.resolve(__dirname, "dist"),
     clean: true,
+    publicPath: "/",
   },
-  devtool: "eval-source-map",
+  devtool: process.env.NODE_ENV === "production"
+  ? false
+  : "eval-source-map",
   devServer: {
     watchFiles: ["./src/**/*.html"],
   },

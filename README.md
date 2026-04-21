@@ -237,6 +237,8 @@ env.remoteHost = "https://<your-public-r2-url>";
 ## 📁 Project Structure
 
 ```
+---
+
 the current file structure:
 
 Ai_powered_content_summarizer/
@@ -322,6 +324,9 @@ Ai_powered_content_summarizer/
 ├── techstack.txt ← optional doc to describe your tech choices
 ├── requirements.txt ← (just a file i created documenting the development process)
 └── webpack.config.js ← Webpack config for multiple pages + assets
+
+---
+
 ```
 
 ---
